@@ -22,6 +22,7 @@ function saveViewProgress(e = null) {
 vPlayer.setCurrentTime(loadTime());
 vPlayer.on('timeupdate', function () {
   saveViewProgress();
+  //
 });
 
 // window.onbeforeunload = e => saveViewProgress(e);
