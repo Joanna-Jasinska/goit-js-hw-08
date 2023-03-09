@@ -20,9 +20,7 @@ function loadForm() {
     );
     loaded = { email, message };
   } catch (error) {
-    email = '';
-    message = '';
-    loaded = { email, message };
+    loaded = { email: '', message: '' };
     // console.log(`error parsing ` + localStorage.getItem('feedback-form-state'));
   }
   emailInput.value = loaded.email;
