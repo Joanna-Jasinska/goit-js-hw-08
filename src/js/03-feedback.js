@@ -1,4 +1,5 @@
-const _ = require('lodash');
+// const _ = require('lodash');
+import { _ } from 'lodash';
 
 const form = document.querySelector('.feedback-form');
 const emailInput = form.querySelector('input');

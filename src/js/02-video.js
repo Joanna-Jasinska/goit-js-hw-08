@@ -1,4 +1,5 @@
-const _ = require('lodash');
+// const _ = require('lodash');
+import { _ } from 'lodash';
 const iframe = document.querySelector('iframe');
 const vPlayer = new Vimeo.Player(iframe);
 function loadTime() {
