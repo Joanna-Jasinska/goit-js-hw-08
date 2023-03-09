@@ -1,3 +1,4 @@
+var _ = require('lodash');
 const iframe = document.querySelector('iframe');
 const vPlayer = new Vimeo.Player(iframe);
 function loadTime() {
@@ -20,10 +21,13 @@ function saveViewProgress(e = null) {
   return 'Saved video progress. Exiting page.';
 }
 vPlayer.setCurrentTime(loadTime());
-vPlayer.on('timeupdate', function () {
-  saveViewProgress();
-  //
-});
+vPlayer.on(
+  'timeupdate',
+  _.throttle(() => {
+    saveViewProgress(); // console.log('throttled..');
+  }),
+  1000
+);
 
 // window.onbeforeunload = e => saveViewProgress(e);
 // vPlayer.on('pause', function () {
