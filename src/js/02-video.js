@@ -1,19 +1,15 @@
-var _ = require('lodash');
+const _ = require('lodash');
 const iframe = document.querySelector('iframe');
 const vPlayer = new Vimeo.Player(iframe);
 function loadTime() {
-  let parsedSettings = 0;
-  try {
-    parsedSettings = JSON.parse(
-      localStorage.getItem('videoplayer-current-time')
-    );
-  } catch (error) {
-    parsedSettings = 0;
-  }
-  return parsedSettings;
+  let parsedSettings = JSON.parse(
+    localStorage.getItem('videoplayer-current-time')
+  );
+  return parsedSettings ? parsedSettings : 0;
 }
-function saveViewProgress(e = null) {
-  //   if (e) e.preventDefault();
+function saveViewProgress() {
+  //e = null) {
+  //   if (e) e.preventDefault(); console.log('throttled save..');
   vPlayer.getCurrentTime().then(function (seconds) {
     let time = seconds ? seconds : loadTime();
     localStorage.setItem('videoplayer-current-time', `${time}`);
@@ -23,11 +19,17 @@ function saveViewProgress(e = null) {
 vPlayer.setCurrentTime(loadTime());
 vPlayer.on(
   'timeupdate',
-  _.throttle(() => {
-    saveViewProgress(); // console.log('throttled..');
-  }),
-  1000
+  _.throttle(() => saveViewProgress(), 1000)
 );
+
+// localStorage.clear();
+// vPlayer.on(
+//   'timeupdate',
+//   _.throttle(() => {
+//     saveViewProgress(); // console.log('throttled..');
+//   }),
+//   1000
+// );
 
 // window.onbeforeunload = e => saveViewProgress(e);
 // vPlayer.on('pause', function () {

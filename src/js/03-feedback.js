@@ -1,4 +1,4 @@
-var _ = require('lodash');
+const _ = require('lodash');
 
 const form = document.querySelector('.feedback-form');
 const emailInput = form.querySelector('input');
@@ -20,8 +20,10 @@ function loadForm() {
     );
     loaded = { email, message };
   } catch (error) {
-    console.log(`error parsing ` + localStorage.getItem('feedback-form-state'));
-    // loaded = [(email = ''), (message = '')];
+    email = '';
+    message = '';
+    loaded = { email, message };
+    // console.log(`error parsing ` + localStorage.getItem('feedback-form-state'));
   }
   emailInput.value = loaded.email;
   messageInput.value = loaded.message;
@@ -32,10 +34,11 @@ function submit(e) {
   const email = emailInput.value;
   const message = messageInput.value;
   const sendingData = { email, message };
+  console.log(sendingData);
   emailInput.value = '';
   messageInput.value = '';
-  saveForm();
-  console.log(sendingData);
+  // saveForm();
+  localStorage.clear();
 }
 
 form.addEventListener(
